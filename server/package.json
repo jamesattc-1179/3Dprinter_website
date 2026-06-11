@@ -4,8 +4,9 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,7 +21,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
+    "@types/express": "^5.0.0",
     "@types/multer": "^2.1.0",
     "@types/node": "^25.9.3",
     "ts-node": "^10.9.2",
