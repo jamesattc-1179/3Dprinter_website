@@ -1,21 +1,23 @@
 import type { Request, Response } from 'express';
-import { getGeminiAnalysis } from '../services/aiService.js';
+import { getGeminiAnalysis } from '../services/aiService.js'; // 根據你的實際路徑調整
 
-export async function analyzeImages(req: Request, res: Response) {
+export async function analyzeImages(req: Request, res: Response): Promise<void> {
   try {
+    // 從前端的 Body 拿到使用者輸入的用途與場景
     const { usage, scenario } = req.body;
 
     if (!usage || !scenario) {
-      return res.status(400).json({ error: 'Usage and scenario are required' });
+       res.status(400).json({ error: "缺少必要參數：usage 或 scenario" });
+       return;
     }
 
-    const analysis = await getGeminiAnalysis(usage, scenario);
-    res.json(analysis);
+    // 呼叫你的 Gemini 服務
+    const analysisResult = await getGeminiAnalysis(usage, scenario);
+
+    // 將結果回傳給前端
+    res.json(analysisResult);
   } catch (error: any) {
-    console.error('AI Analysis Error:', error);
-    if (error.response) {
-      console.error('Gemini API Error details:', error.response.data);
-    }
-    res.status(500).json({ error: 'Failed to analyze requirements', details: error.message });
+    console.error("Controller 發生錯誤:", error);
+    res.status(500).json({ error: error.message || "伺服器內部錯誤" });
   }
 }

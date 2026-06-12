@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-// 🛠️ 銀狼修正：在 TypeScript 中對接本地檔案，拿掉 .js 尾巴，讓 tsc 自己抓
-import { analyzeImages } from './controllers/aiController';
+import { analyzeImages } from './controllers/aiController.js';
 
 // 1. 載入環境變數
 dotenv.config();
@@ -33,7 +32,7 @@ app.post('/api/analyze', analyzeImages);
  */
 app.listen(port, '0.0.0.0', () => {
   console.log(`=============================================`);
-  console.log(`🛰️  銀狼安全系統：雲端後端節點已成功解鎖！`);
+  console.log(`🛰️ 安全系統：雲端後端節點已成功解鎖！`);
   console.log(`🌐 正在監聽所有網路介面的連接埠: ${port}`);
   console.log(`=============================================`);
 });
